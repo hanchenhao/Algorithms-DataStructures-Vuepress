@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>算法和数据结构 | 深度优先搜索</title>
+    <meta name="description" content="基本的算法和数据结构">
+    
+    
+    <link rel="preload" href="/Algorithms-DataStructures-Vuepress/assets/css/18.styles.9bfb5f3f.css" as="style"><link rel="preload" href="/Algorithms-DataStructures-Vuepress/assets/js/app.6d89c253.js" as="script"><link rel="preload" href="/Algorithms-DataStructures-Vuepress/assets/js/12.d71509c4.js" as="script"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/10.f94f1dd9.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/1.e886998b.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/2.05c90dba.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/3.ce3e7e43.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/4.58272cc9.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/5.be95a916.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/6.73ad716e.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/7.cf87ace6.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/8.338d4234.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/9.7ae319d1.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/0.dccb1d1f.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/11.79d8fa09.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/13.0cd9a29a.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/14.14b380d2.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/15.fa1ea035.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/16.401da94c.js"><link rel="prefetch" href="/Algorithms-DataStructures-Vuepress/assets/js/17.562f1a3c.js">
+    <link rel="stylesheet" href="/Algorithms-DataStructures-Vuepress/assets/css/18.styles.9bfb5f3f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/Algorithms-DataStructures-Vuepress/" class="home-link router-link-active"><!----><span class="site-name">
+      算法和数据结构
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><nav class="nav-links can-hide"><div class="nav-item"><a href="/Algorithms-DataStructures-Vuepress/" class="nav-link">Home</a></div><a href="https://github.com/hanchenhao/Algorithms-DataStructures-Vuepress.git" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/Algorithms-DataStructures-Vuepress/" class="nav-link">Home</a></div><a href="https://github.com/hanchenhao/Algorithms-DataStructures-Vuepress.git" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav><ul class="sidebar-links"><li><div class="sidebar-group first"><p class="sidebar-heading open"><span>目录</span><!----></p><ul class="sidebar-group-items"><li><a href="/Algorithms-DataStructures-Vuepress/" class="sidebar-link">基本的算法和数据结构</a></li></ul></div></li></ul></div><div class="page"><div class="content"><h1 id="深度优先搜索"><a href="#深度优先搜索" aria-hidden="true" class="header-anchor">#</a> 深度优先搜索</h1><p>深度优先搜索(<strong>Depth-First Search</strong>)，是图论中的经典算法。其利用深度优先搜索算法可以产生目标图的相应拓扑排序表，利用拓扑排序表可以方便的解决很多相关的图论问题，如最大路径问题等等。</p><p>图的深度优先遍历类似于树的前序遍历。采用的搜索方法的特点是尽可能先对纵深方向进行搜索。这种搜索方法称为深度优先搜索(<strong>Depth-First Search</strong>)。相应地，用此方法遍历图就很自然地称之为图的深度优先遍历。</p><p>完成深度优先搜索算法,我们要借助图和递归来实现</p><p>首先我们实现一个<code>Graph</code></p><pre class="language-swift"><code>
+<span class="token keyword">class</span> <span class="token class-name">Edge</span><span class="token punctuation">:</span> <span class="token builtin">Equatable</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">var</span> neighbor<span class="token punctuation">:</span> <span class="token builtin">Node</span>
+    
+    <span class="token keyword">init</span><span class="token punctuation">(</span><span class="token number">_</span> neighbor<span class="token punctuation">:</span> <span class="token builtin">Node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>neighbor <span class="token operator">=</span> neighbor
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">static</span> <span class="token keyword">func</span> <span class="token operator">==</span> <span class="token punctuation">(</span>lhs<span class="token punctuation">:</span> <span class="token builtin">Edge</span><span class="token punctuation">,</span> rhs<span class="token punctuation">:</span> <span class="token builtin">Edge</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">Bool</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> lhs<span class="token punctuation">.</span>neighbor <span class="token operator">==</span> rhs<span class="token punctuation">.</span>neighbor
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Node</span><span class="token punctuation">:</span> <span class="token builtin">Equatable</span> <span class="token punctuation">{</span>
+    
+    <span class="token keyword">var</span> neighbors<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token builtin">Edge</span><span class="token punctuation">]</span>
+    <span class="token keyword">var</span> label<span class="token punctuation">:</span> <span class="token builtin">String</span>
+    <span class="token keyword">var</span> visited<span class="token punctuation">:</span> <span class="token builtin">Bool</span>
+    <span class="token keyword">var</span> <span class="token builtin">distance</span><span class="token punctuation">:</span> <span class="token builtin">Int</span><span class="token operator">?</span>
+    
+    <span class="token keyword">init</span><span class="token punctuation">(</span><span class="token number">_</span> label<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        neighbors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>label <span class="token operator">=</span> label
+        visited <span class="token operator">=</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">static</span> <span class="token keyword">func</span> <span class="token operator">==</span> <span class="token punctuation">(</span>lhs<span class="token punctuation">:</span> <span class="token builtin">Node</span><span class="token punctuation">,</span> rhs<span class="token punctuation">:</span> <span class="token builtin">Node</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">Bool</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> lhs<span class="token punctuation">.</span>neighbors <span class="token operator">==</span> rhs<span class="token punctuation">.</span>neighbors <span class="token operator">&amp;&amp;</span> lhs<span class="token punctuation">.</span>label <span class="token operator">==</span> rhs<span class="token punctuation">.</span>label
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Graph</span><span class="token punctuation">:</span> <span class="token builtin">Equatable</span> <span class="token punctuation">{</span>
+    
+    <span class="token keyword">var</span> nodes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token builtin">Node</span><span class="token punctuation">]</span>
+    
+    <span class="token keyword">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>nodes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">func</span> <span class="token function">addNode</span><span class="token punctuation">(</span><span class="token number">_</span> label<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">Node</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> node <span class="token operator">=</span> <span class="token function">Node</span><span class="token punctuation">(</span>label<span class="token punctuation">)</span>
+        nodes<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> node
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">func</span> <span class="token function">addEdge</span><span class="token punctuation">(</span><span class="token number">_</span> source<span class="token punctuation">:</span> <span class="token builtin">Node</span> <span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> <span class="token builtin">Node</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">Void</span> <span class="token punctuation">{</span>
+        source<span class="token punctuation">.</span>neighbors<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token function">Edge</span><span class="token punctuation">(</span>neighbor<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">static</span> <span class="token keyword">func</span> <span class="token operator">==</span> <span class="token punctuation">(</span>lhs<span class="token punctuation">:</span> <span class="token builtin">Graph</span><span class="token punctuation">,</span> rhs<span class="token punctuation">:</span> <span class="token builtin">Graph</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">Bool</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> lhs<span class="token punctuation">.</span>nodes <span class="token operator">==</span> rhs<span class="token punctuation">.</span>nodes
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+</code></pre><p>我们给Graph插入一些测试数据,让其形成一个这样的结构</p><pre class="language-text"><code>		      a
+		     / \
+		  b   c
+		 / \ / \ 
+	        d  e-f-g
+	          / 
+	         h
+
+</code></pre><p>当我们用深度优先搜索,它将沿着a-b-d-e-h-f-g-c 这样一个路线进行搜索</p><p>要实现这个算法,我们可以用基本的递归方式来完成</p><pre class="language-swift"><code>
+<span class="token keyword">func</span> <span class="token function">depthFirstSearch</span><span class="token punctuation">(</span><span class="token number">_</span> graph<span class="token punctuation">:</span> <span class="token builtin">Graph</span><span class="token punctuation">,</span> source<span class="token punctuation">:</span> <span class="token builtin">Node</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> nodesExplored <span class="token operator">=</span> <span class="token punctuation">[</span>source<span class="token punctuation">.</span>label<span class="token punctuation">]</span>
+    source<span class="token punctuation">.</span>visited <span class="token operator">=</span> <span class="token boolean">true</span>
+    
+    <span class="token keyword">for</span> edge <span class="token keyword">in</span> source<span class="token punctuation">.</span>neighbors <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token operator">!</span>edge<span class="token punctuation">.</span>neighbor<span class="token punctuation">.</span>visited <span class="token punctuation">{</span>
+            nodesExplored <span class="token operator">+</span><span class="token operator">=</span> <span class="token function">depthFirstSearch</span><span class="token punctuation">(</span>graph<span class="token punctuation">,</span> source<span class="token punctuation">:</span> edge<span class="token punctuation">.</span>neighbor<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> nodesExplored
+<span class="token punctuation">}</span>
+
+</code></pre><p>我们测试一下</p><pre class="language-swift"><code>
+<span class="token keyword">let</span> graph <span class="token operator">=</span> <span class="token function">Graph</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">let</span> nodeA <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> nodeB <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span><span class="token string">&quot;b&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> nodeC <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span><span class="token string">&quot;c&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> nodeD <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span><span class="token string">&quot;d&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> nodeE <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span><span class="token string">&quot;e&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> nodeF <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span><span class="token string">&quot;f&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> nodeG <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span><span class="token string">&quot;g&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> nodeH <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">addNode</span><span class="token punctuation">(</span><span class="token string">&quot;h&quot;</span><span class="token punctuation">)</span>
+
+graph<span class="token punctuation">.</span><span class="token function">addEdge</span><span class="token punctuation">(</span>nodeA<span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> nodeB<span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span><span class="token function">addEdge</span><span class="token punctuation">(</span>nodeA<span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> nodeC<span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span><span class="token function">addEdge</span><span class="token punctuation">(</span>nodeB<span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> nodeD<span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span><span class="token function">addEdge</span><span class="token punctuation">(</span>nodeB<span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> nodeE<span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span><span class="token function">addEdge</span><span class="token punctuation">(</span>nodeC<span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> nodeF<span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span><span class="token function">addEdge</span><span class="token punctuation">(</span>nodeC<span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> nodeG<span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span><span class="token function">addEdge</span><span class="token punctuation">(</span>nodeE<span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> nodeH<span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span><span class="token function">addEdge</span><span class="token punctuation">(</span>nodeE<span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> nodeF<span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span><span class="token function">addEdge</span><span class="token punctuation">(</span>nodeF<span class="token punctuation">,</span> neighbor<span class="token punctuation">:</span> nodeG<span class="token punctuation">)</span>
+
+<span class="token keyword">let</span> nodesExplored <span class="token operator">=</span> <span class="token function">depthFirstSearch</span><span class="token punctuation">(</span>graph<span class="token punctuation">,</span> source<span class="token punctuation">:</span> nodeA<span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>nodesExplored<span class="token punctuation">)</span>
+
+</code></pre><p>最终的结果为</p><blockquote><p>[&quot;a&quot;, &quot;b&quot;, &quot;d&quot;, &quot;e&quot;, &quot;h&quot;, &quot;f&quot;, &quot;g&quot;, &quot;c&quot;]</p></blockquote></div><div class="content edit-link"><a href="https://github.com/hanchenhao/Algorithms-DataStructures-Vuepress.git/edit/master/docs/DepthFirstSearch/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div><!----></div></div></div>
+    <script src="/Algorithms-DataStructures-Vuepress/assets/js/12.d71509c4.js" defer></script><script src="/Algorithms-DataStructures-Vuepress/assets/js/app.6d89c253.js" defer></script>
+  </body>
+</html>
